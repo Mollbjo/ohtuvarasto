@@ -1,3 +1,2 @@
 # ohtuvarasto
-
-![GHA workflow badge] (https://github.com/Mollbjo/ohtuvarasto/workflows/CI/badge.svg?event=push)
+[![CI](https://github.com/Mollbjo/ohtuvarasto/actions/workflows/main.yml/badge.svg)](https://github.com/Mollbjo/ohtuvarasto/actions/workflows/main.yml)
