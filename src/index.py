@@ -49,7 +49,7 @@ def negatiivinen_varasto(mehua):
  print(f"Mehuvarasto: {mehua}")
 
  print(f"Mehuvarasto: {mehua}")
- print("mehua.otaVarastosta(-32.9), testataan epäonnistuuko tää testi jos näitä merkkejä on vähän turhan paljon, salee epäonnistuu, jos ei ni huonomäihä")
+ print("mehua.otaVarastosta(-32.9)")
  saatiin = mehua.ota_varastosta(-32.9)
  print(f"saatiin {saatiin}")
  print(f"Mehuvarasto: {mehua}")
