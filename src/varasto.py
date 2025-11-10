@@ -29,4 +29,4 @@ class Varasto:
   return maara
 
  def __str__(self):
-  return f"saldo = {self.saldo}, tilaa {self.paljonko_mahtuu()}"
+  return f"saldo = {int(self.saldo)}, vielä tilaa {int(self.paljonko_mahtuu())}"
