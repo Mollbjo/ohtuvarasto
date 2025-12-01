@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block title %}Create Warehouse{% endblock %}
+
+{% block content %}
+<a href="{{ url_for('index') }}" class="back-link">&larr; Back to Warehouses</a>
+
+<h1>Create New Warehouse</h1>
+
+<form method="POST">
+    <div class="form-group">
+        <label for="name">Warehouse Name:</label>
+        <input type="text" id="name" name="name" required>
+    </div>
+    
+    <div class="form-group">
+        <label for="capacity">Capacity:</label>
+        <input type="number" id="capacity" name="capacity" step="0.01" min="0" required>
+    </div>
+    
+    <div class="form-group">
+        <label for="initial">Initial Balance:</label>
+        <input type="number" id="initial" name="initial" step="0.01" min="0" value="0">
+    </div>
+    
+    <button type="submit" class="btn btn-primary">Create Warehouse</button>
+</form>
+{% endblock %}

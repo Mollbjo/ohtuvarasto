@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block title %}Edit Warehouse{% endblock %}
+
+{% block content %}
+<a href="{{ url_for('index') }}" class="back-link">&larr; Back to Warehouses</a>
+
+<h1>Edit Warehouse: {{ warehouse.name }}</h1>
+
+<p>Current Balance: {{ warehouse.varasto.saldo|round(2) }}</p>
+<p>Capacity: {{ warehouse.varasto.tilavuus|round(2) }}</p>
+
+<form method="POST">
+    <div class="form-group">
+        <label for="name">Warehouse Name:</label>
+        <input type="text" id="name" name="name" value="{{ warehouse.name }}" required>
+    </div>
+    
+    <button type="submit" class="btn btn-primary">Save Changes</button>
+</form>
+{% endblock %}
