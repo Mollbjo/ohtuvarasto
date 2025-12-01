@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% block title %}Warehouses - Home{% endblock %}
+
+{% block content %}
+<h1>Warehouse Management</h1>
+
+<a href="{{ url_for('create') }}" class="btn btn-primary">Create New Warehouse</a>
+
+{% if warehouses %}
+<table>
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Balance</th>
+            <th>Capacity</th>
+            <th>Space Available</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for id, warehouse in warehouses.items() %}
+        <tr>
+            <td>{{ id }}</td>
+            <td>{{ warehouse.name }}</td>
+            <td>{{ warehouse.varasto.saldo|round(2) }}</td>
+            <td>{{ warehouse.varasto.tilavuus|round(2) }}</td>
+            <td>{{ warehouse.varasto.paljonko_mahtuu()|round(2) }}</td>
+            <td class="actions">
+                <a href="{{ url_for('edit', warehouse_id=id) }}" class="btn btn-secondary">Edit</a>
+                <a href="{{ url_for('add', warehouse_id=id) }}" class="btn btn-primary">Add</a>
+                <a href="{{ url_for('take', warehouse_id=id) }}" class="btn btn-warning">Take</a>
+                <form action="{{ url_for('delete', warehouse_id=id) }}" method="POST" style="display: inline;">
+                    <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure?')">Delete</button>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% else %}
+<p>No warehouses yet. Create one to get started!</p>
+{% endif %}
+{% endblock %}

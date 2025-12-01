@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block title %}Take from Warehouse{% endblock %}
+
+{% block content %}
+<a href="{{ url_for('index') }}" class="back-link">&larr; Back to Warehouses</a>
+
+<h1>Take from Warehouse: {{ warehouse.name }}</h1>
+
+<p>Current Balance: {{ warehouse.varasto.saldo|round(2) }}</p>
+<p>Capacity: {{ warehouse.varasto.tilavuus|round(2) }}</p>
+
+<form method="POST">
+    <div class="form-group">
+        <label for="amount">Amount to Take:</label>
+        <input type="number" id="amount" name="amount" step="0.01" min="0" required>
+    </div>
+    
+    <button type="submit" class="btn btn-warning">Take from Warehouse</button>
+</form>
+{% endblock %}

@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+
+{% block title %}Add to Warehouse{% endblock %}
+
+{% block content %}
+<a href="{{ url_for('index') }}" class="back-link">&larr; Back to Warehouses</a>
+
+<h1>Add to Warehouse: {{ warehouse.name }}</h1>
+
+<p>Current Balance: {{ warehouse.varasto.saldo|round(2) }}</p>
+<p>Space Available: {{ warehouse.varasto.paljonko_mahtuu()|round(2) }}</p>
+
+<h2>Quick Add Products</h2>
+<div class="product-grid">
+    {% for product in products %}
+    <form method="POST" class="product-card">
+        <input type="hidden" name="amount" value="{{ product.amount }}">
+        <button type="submit" class="btn btn-secondary product-btn">
+            {{ product.name }}<br>
+            <small>({{ product.amount }} units)</small>
+        </button>
+    </form>
+    {% endfor %}
+</div>
+
+<h2>Custom Amount</h2>
+<form method="POST">
+    <div class="form-group">
+        <label for="amount">Amount to Add:</label>
+        <input type="number" id="amount" name="amount" step="0.01" min="0" required>
+    </div>
+    
+    <button type="submit" class="btn btn-primary">Add to Warehouse</button>
+</form>
+
+<style>
+    .product-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+        gap: 10px;
+        margin-bottom: 30px;
+    }
+    .product-card {
+        display: inline-block;
+    }
+    .product-btn {
+        width: 100%;
+        height: 80px;
+        text-align: center;
+    }
+    h2 {
+        margin-top: 20px;
+        margin-bottom: 15px;
+        font-size: 1.2em;
+        color: #555;
+    }
+</style>
+{% endblock %}
