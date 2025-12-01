@@ -4,6 +4,20 @@ from varasto import Varasto
 
 app = Flask(__name__)
 
+PRESET_PRODUCTS = [
+ {"name": "Orange Juice (1L)", "amount": 1.0},
+ {"name": "Apple Juice (1L)", "amount": 1.0},
+ {"name": "Milk Carton (1L)", "amount": 1.0},
+ {"name": "Water Bottle (0.5L)", "amount": 0.5},
+ {"name": "Soda Can (0.33L)", "amount": 0.33},
+ {"name": "Juice Box (6-pack)", "amount": 6.0},
+ {"name": "Beer Crate (24-pack)", "amount": 24.0},
+]
+
+
+def get_preset_products():
+ return PRESET_PRODUCTS
+
 
 class WarehouseStore:
  def __init__(self):
@@ -129,7 +143,11 @@ def add(warehouse_id):
   amount = float(request.form.get("amount", 0))
   add_to_warehouse(warehouse_id, amount)
   return redirect(url_for("index"))
- return render_template("add.html", warehouse=warehouse)
+ return render_template(
+  "add.html",
+  warehouse=warehouse,
+  products=get_preset_products()
+ )
 
 
 @app.route("/take/<int:warehouse_id>", methods=["GET", "POST"])

@@ -2,7 +2,7 @@ import unittest
 from app import (
     app, reset_warehouses, create_warehouse, get_warehouse,
     get_all_warehouses, update_warehouse_name, delete_warehouse,
-    add_to_warehouse, take_from_warehouse
+    add_to_warehouse, take_from_warehouse, get_preset_products
 )
 
 
@@ -71,6 +71,15 @@ class TestAppHelpers(unittest.TestCase):
         taken = take_from_warehouse(999, 50)
         self.assertEqual(taken, 0.0)
 
+    def test_get_preset_products(self):
+        products = get_preset_products()
+        self.assertIsInstance(products, list)
+        self.assertGreater(len(products), 0)
+        for product in products:
+            self.assertIn("name", product)
+            self.assertIn("amount", product)
+            self.assertIsInstance(product["amount"], (int, float))
+
 
 class TestAppRoutes(unittest.TestCase):
     def setUp(self):
@@ -128,6 +137,14 @@ class TestAppRoutes(unittest.TestCase):
         response = self.client.get(f"/add/{warehouse_id}")
         self.assertEqual(response.status_code, 200)
         self.assertIn(b"Add to Warehouse", response.data)
+
+    def test_add_get_shows_preset_products(self):
+        warehouse_id = create_warehouse("Add Test", 100)
+        response = self.client.get(f"/add/{warehouse_id}")
+        self.assertEqual(response.status_code, 200)
+        self.assertIn(b"Quick Add Products", response.data)
+        self.assertIn(b"Orange Juice", response.data)
+        self.assertIn(b"Apple Juice", response.data)
 
     def test_add_nonexistent(self):
         response = self.client.get("/add/999", follow_redirects=True)
